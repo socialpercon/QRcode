@@ -366,7 +366,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     lastResult = rawResult;
     ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
     historyManager.addHistoryItem(rawResult, resultHandler);
-
+    
     if (barcode == null) {
       // This is from history -- no saved barcode
       handleDecodeInternally(rawResult, resultHandler, null);
@@ -444,18 +444,19 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   // Put up our own UI for how to handle the decoded contents.
   private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler, Bitmap barcode) {
-    statusView.setVisibility(View.GONE);
+    statusView.setVisibility(View.GONE);//레이어에 빨간줄 노출 여부 결정
     viewfinderView.setVisibility(View.GONE);
     resultView.setVisibility(View.VISIBLE);
 
     ImageView barcodeImageView = (ImageView) findViewById(R.id.barcode_image_view);
+    //인식결과 이미지 출력
     if (barcode == null) {
       barcodeImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
           R.drawable.launcher_icon));
     } else {
       barcodeImageView.setImageBitmap(barcode);
     }
-
+    //인식결과 포맷출력
     TextView formatTextView = (TextView) findViewById(R.id.format_text_view);
     formatTextView.setText(rawResult.getBarcodeFormat().toString());
 
